@@ -1,9 +1,9 @@
 {
-  "name": "@ngx-translate/core",
+  "name": "@chimung/ngx-translate-core",
   "description": "The internationalization (i18n) library for Angular",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ngx-translate/core.git"
+    "url": "git+https://github.com/chimung/core.git"
   },
   "keywords": [
     "angular",

@@ -77,3 +77,18 @@ export function mergeDeep(target: any, source: any): any {
     }
     return output;
 }
+
+export function trackKey(key: string | Array<string>) {
+    let ktContent = localStorage.getItem('keyTranslate') || '{}'
+    let kt: any = {}
+    try {
+        kt = JSON.parse(ktContent);
+    } catch (e) {}
+    if (Array.isArray(key)) {
+        key.forEach(x => kt[x] = 1)
+    } else {
+        kt[key] =  1;
+    }
+
+    localStorage.setItem('keyTranslate', JSON.stringify(kt))
+}
