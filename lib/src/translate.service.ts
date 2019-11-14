@@ -19,6 +19,7 @@ import {TranslateParser} from "./translate.parser";
 
 import {TranslateStore} from "./translate.store";
 import {isDefined, mergeDeep} from "./util";
+import { isArray } from "util";
 
 export const USE_STORE = new InjectionToken<string>('USE_STORE');
 export const USE_DEFAULT_LANG = new InjectionToken<string>('USE_DEFAULT_LANG');
@@ -393,6 +394,19 @@ export class TranslateService {
         if(!isDefined(key) || !key.length) {
             throw new Error(`Parameter "key" required`);
         }
+
+        let ktContent = localStorage.getItem('keyTranslate') || '{}'
+        let kt: any = {}
+        try {
+            kt = JSON.parse(ktContent);
+        } catch (e) {}
+        if (isArray(key)) {
+            key.forEach(x => kt[x] = 1)
+        } else {
+            kt[key] =  1;
+        }
+
+        localStorage.setItem('keyTranslate', JSON.stringify(kt))
         // check if we are loading a new translation to use
         if(this.pending) {
             return Observable.create((observer: Observer<string>) => {
